@@ -14,9 +14,20 @@ class Laporan extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'opd_id',
-        'layanan',
+        'layanan_id',
         'keterangan'
     ];
+
+    public function opd()
+    {
+        return $this->belongsTo(Opd::class);
+    }
+
+    public function layanan()
+    {
+        return $this->belongsTo(Layanan::class);
+    }
+
     public static function booted()
     {
         static::creating(function ($model) {

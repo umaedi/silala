@@ -16,12 +16,11 @@ return new class extends Migration
         Schema::create('laporans', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('opd_id');
-            $table->string('layanan');
+            $table->foreignId('layanan_id');
             $table->text('keterangan');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

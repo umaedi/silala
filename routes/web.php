@@ -23,5 +23,20 @@ Route::get('/', function () {
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/dashboard', Admin\DahsboardController::class);
 
+    Route::get('/layanan/{id}', [Admin\LayananController::class, 'index']);
     Route::post('/layanan/store', [Admin\LayananController::class, 'store']);
+    Route::get('/layanan/show/{id}', [Admin\LayananController::class, 'show']);
+
+    Route::get('/oprator', [Admin\OpratorController::class, 'index']);
+    Route::post('/oprator/store', [Admin\OpratorController::class, 'store']);
+    Route::get('/oprator/show/{id}', [Admin\OpratorController::class, 'show']);
+
+    Route::get('/laporan', [Admin\LaporanController::class, 'index']);
+});
+
+Route::middleware('auth')->prefix('oprator')->group(function () {
+    Route::get('/dashboard', Oprator\DashboardController::class);
+
+    Route::get('/laporan', [Oprator\LaporanController::class, 'index']);
+    Route::post('/laporan/store', [Oprator\LaporanController::class, 'store']);
 });

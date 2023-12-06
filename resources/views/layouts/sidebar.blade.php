@@ -66,10 +66,11 @@
 
     <div class="menu-inner-shadow"></div>
 
+    @if (auth()->user()->level == 'admin')
     <ul class="menu-inner py-1">
       <!-- Dashboard -->
       <li class="menu-item active">
-        <a href="index.html" class="menu-link">
+        <a href="/admin/dashboard" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Dashboard</div>
         </a>
@@ -77,7 +78,7 @@
 
       <!-- Layouts -->
       <li class="menu-item">
-        <a  data-bs-toggle="modal" data-bs-target="#basicModal" href="icons-boxicons.html" class="menu-link">
+        <a  data-bs-toggle="modal" data-bs-target="#basicModal" href="javascript:void()" class="menu-link">
           <i class="menu-icon tf-icons bx bx-plus-medical"></i>
           <div data-i18n="Boxicons">Tambah Layanan</div>
         </a>
@@ -90,72 +91,72 @@
 
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="layouts-without-menu.html" class="menu-link">
+            <a href="/admin/layanan/1" class="menu-link">
               <div data-i18n="Without menu">DPMPTSP</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-without-navbar.html" class="menu-link">
+            <a href="/admin/layanan/2" class="menu-link">
               <div data-i18n="Without navbar">CAPIL</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-container.html" class="menu-link">
+            <a href="/admin/layanan/3" class="menu-link">
               <div data-i18n="Container">POLRES</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-fluid.html" class="menu-link">
+            <a href="/admin/layanan/4" class="menu-link">
               <div data-i18n="Fluid">KEJARI</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
+            <a href="/admin/layanan/5" class="menu-link">
               <div data-i18n="Blank">KEMENAG</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
+            <a href="/admin/layanan/6" class="menu-link">
               <div data-i18n="Blank">KP2KP</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
+            <a href="/admin/layanan/7" class="menu-link">
               <div data-i18n="Blank">BPOM</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
+            <a href="/admin/layanan/8" class="menu-link">
               <div data-i18n="Blank">BPJS TK</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
+            <a href="/admin/layanan/9" class="menu-link">
               <div data-i18n="Blank">BPJS KES</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
+            <a href="/admin/layanan/10" class="menu-link">
               <div data-i18n="Blank">MIGRASI</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
+            <a href="/admin/layanan/11" class="menu-link">
               <div data-i18n="Blank">PENGADILAN AGAMA</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
+            <a href="/admin/layanan/12" class="menu-link">
               <div data-i18n="Blank">BANK LAMPUNG</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
+            <a href="/admin/layanan/13" class="menu-link">
               <div data-i18n="Blank">BANK MANDIRI</div>
             </a>
           </li>
           <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
+            <a href="/admin/layanan/14" class="menu-link">
               <div data-i18n="Blank">TASPEN</div>
             </a>
           </li>
@@ -166,7 +167,7 @@
         <span class="menu-header-text">Oprator</span>
       </li>
       <li class="menu-item">
-        <a href="icons-boxicons.html" class="menu-link">
+        <a href="/admin/oprator" class="menu-link">
           <i class="menu-icon tf-icons bx bxs-user"></i>
           <div data-i18n="Boxicons">Data Oprator</div>
         </a>
@@ -187,4 +188,39 @@
         </a>
       </li>
     </ul>
+    @else
+    <ul class="menu-inner py-1">
+      <!-- Dashboard -->
+      <li class="menu-item active">
+        <a href="/oprator/dashboard" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Analytics">Dashboard</div>
+        </a>
+      </li>
+
+      <!-- Layouts -->
+      <li class="menu-item">
+        <a  data-bs-toggle="modal" data-bs-target="#layananModal" href="javascript:void()" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-plus-medical"></i>
+          <div data-i18n="Boxicons">Buat Layanan</div>
+        </a>
+      </li>
+
+      <!-- Components -->
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Pengaturan</span></li>
+      <!-- Cards -->
+      <li class="menu-item">
+        <a href="cards-basic.html" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-cog"></i>
+          <div data-i18n="Basic">Pengaturan</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="cards-basic.html" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-support"></i>
+          <div data-i18n="Basic">Support</div>
+        </a>
+      </li>
+    </ul>
+    @endif
   </aside>

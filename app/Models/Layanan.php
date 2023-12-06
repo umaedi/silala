@@ -12,4 +12,14 @@ class Layanan extends Model
         'opd_id',
         'nama_layanan',
     ];
+
+    public function opd()
+    {
+        return $this->belongsTo(Opd::class);
+    }
+
+    public function laporan()
+    {
+        return $this->hasMany(Laporan::class);
+    }
 }

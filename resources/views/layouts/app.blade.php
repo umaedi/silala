@@ -14,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>{{ $title ?? 'Dashboard Silala' }}</title>
 
     <meta name="description" content="" />
 
@@ -87,6 +87,106 @@
         <!-- / Layout page -->
       </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+      <form id="storeLayanan">
+        @csrf
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="basicModalTitle">Tambah Layanan</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <span id="notif"></span>
+              <div class="row">
+                <div class="col mb-3">
+                  <label for="nameWithTitle" class="form-label">Nama layanan</label>
+                  <input
+                    name="nama_layanan"
+                    type="text"
+                    id="namaLayanan"
+                    class="form-control"
+                    placeholder="Masukan nama layanan"
+                    autofocus
+                  />
+                </div>
+              </div>
+              <div class="row g-2">
+                <div class="col mb-3">
+                    <label for="nameWithTitle" class="form-label">Bagian</label>
+                        <select name="opd_id" id="list_opd" class="form-select">
+                          
+                        </select>
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Batal
+              </button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal buat layanan-->
+    <div class="modal fade" id="layananModal" tabindex="-1" aria-hidden="true">
+      <form id="storeLaporan">
+        @csrf
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="layananModalTitle">Buat Laporan</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <span id="notifLaporan"></span>
+              <div class="row">
+                <div class="col mb-3">
+                  <label for="nameWithTitle" class="form-label">Nama layanan</label>
+                  <select name="layanan_id" id="layanan" onchange="resetInput()" class="form-select">
+                          
+                  </select>
+                </div>
+              </div>
+              <div class="row g-2">
+                <div class="col mb-3">
+                    <label for="nameWithTitle" class="form-label">Keterangan</label>
+                    <input
+                      name="keterangan"
+                      type="text"
+                      id="keterangan"
+                      class="form-control"
+                      placeholder="Masukan keterangan"
+                      autofocus
+                    />
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Batal
+              </button>
+              @include('layouts._button')
+              <button id="btn_submit_laporan" type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
@@ -102,9 +202,6 @@
     <script src="{{ asset('vendor') }}/js/menu.js"></script>
     <!-- endbuild -->
 
-    <!-- Vendors JS -->
-    <script src="{{ asset('vendor') }}/libs/apex-charts/apexcharts.js"></script>
-
     <!-- Main JS -->
     <script src="{{ asset('js') }}/main.js"></script>
 
@@ -115,6 +212,11 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script type="text/javascript">
+      $(document).ready(function() {
+            loadOpd();
+            loadLayanan();
+        });
+
       async function transAjax(data) {
           html = null;
           data.headers = {
@@ -129,15 +231,110 @@
           return html
       }
 
-      function initToast(title, message, status, time) {
-        $.toast({
-            type: status,
-            title: title,
-            subtitle: time,
-            content: message,
-            delay: 5000,
+      async function loadOpd()
+        {
+          var param = {
+            url: '/admin/dashboard',
+            method: 'GET',
+            data: {
+              load: 'opd',
+            }
+          }
+
+          await transAjax(param).then((result) => {
+            console.log(result);
+            $('#list_opd').html(result);
+          });
+        }
+        
+      async function loadLayanan()
+        {
+          var param = {
+            url: '/oprator/dashboard',
+            method: 'GET',
+            data: {
+              load: 'layanan',
+            }
+          }
+
+          await transAjax(param).then((result) => {
+            $('#layanan').html(result);
+          });
+
+        }
+
+      $('#storeLayanan').on('submit', async function store(e) {
+          e.preventDefault();
+
+          var form 	= $(this)[0]; 
+          var data 	= new FormData(form);
+          var param = {
+            url: '/admin/layanan/store',
+            method: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+          }
+
+          await transAjax(param).then((result) => {
+            $('#notif').html(`<div class="alert alert-success">${result.data}</div>`);
+            loadTable();
+          }).catch((err) => {
+            $('#notif').html(`<div class="alert alert-warning">${err.message}</div>`);
+          });
         });
-      }
+
+        $('#namaLayanan').on('click', function() {
+          $('#notif').html('');
+        });
+
+
+      $('#storeLaporan').on('submit', async function store(e) {
+          e.preventDefault();
+
+          var form 	= $(this)[0]; 
+          var data 	= new FormData(form);
+          var param = {
+            url: '/oprator/laporan/store',
+            method: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+          }
+
+          action(true);
+          await transAjax(param).then((result) => {
+            action(false);
+            $('#notifLaporan').html(`<div class="alert alert-success">${result.data}</div>`);
+            loadLaporan();
+          }).catch((err) => {
+            action(false);
+            $('#notif').html(`<div class="alert alert-warning">${err.message}</div>`);
+          });
+        });
+
+        $('#namaLayanan').on('click', function() {
+          $('#notif').html('');
+        });
+
+        function resetInput()
+        {
+          $('#notifLaporan').html('');
+          $('#keterangan').val('');
+        }
+
+        function action(state)
+        {
+            if(state) {
+                $('#btn_loading').removeClass('d-none');
+                $('#btn_submit_laporan').addClass('d-none');
+            } else {
+                $('#btn_loading').addClass('d-none');
+                $('#btn_submit_laporan').removeClass('d-none');
+            }
+        }
 
       </script>
       @stack('js')

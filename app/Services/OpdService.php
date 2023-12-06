@@ -16,4 +16,9 @@ class OpdService
     {
         return $this->opd->all();
     }
+
+    public function count()
+    {
+        return $this->opd->count();
+    }
 }

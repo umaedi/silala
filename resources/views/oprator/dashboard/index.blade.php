@@ -57,8 +57,8 @@
                     </div>
                   </div>
                 </div>
-                <span class="fw-semibold d-block mb-1">Layanan</span>
-                <h3 class="card-title mb-2">{{ $layanan }}</h3>
+                <span class="fw-semibold d-block mb-1">Jenis Layanan</span>
+                <h3 class="card-title mb-2">179</h3>
               </div>
             </div>
           </div>
@@ -90,8 +90,8 @@
                     </div>
                   </div>
                 </div>
-                <span class="fw-semibold d-block mb-1">Oprator</span>
-                <h3 class="card-title mb-2">{{ $opd }}</h3>
+                <span class="fw-semibold d-block mb-1">Pelayanan hari ini</span>
+                <h3 class="card-title mb-2">14</h3>
               </div>
             </div>
           </div>
@@ -99,117 +99,61 @@
         </div>
       </div>
       <!-- Total Revenue -->
-      <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-        <div class="card">
-          <h5 class="card-header">PELAYANAN HARI INI</h5>
-          <div class="card-body">
-            <div class="table-responsive text-nowrap">
-              @include('layouts._loading')
-              <table class="table table-bordered" id="dataTable">
-
-              </table>
+      <div class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
+          <div class="col-md mb-4 mb-md-0">
+            <div class="card">
+              <h5 class="card-header">LAYANAN {{ auth()->user()->opd->nama_opd }}</h5>
+              <div class="card-body">
+                  @include('layouts._loading')
+                  <div class="table-responsive text-nowrap" id="dataTable">
+                      
+                  </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <!--/ Total Revenue -->
-      <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
-        <div class="row">
-          <div class="col-6 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="card-title d-flex align-items-start justify-content-between">
-                  <div class="avatar flex-shrink-0">
-                    <img src="{{ asset('img') }}/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
-                  </div>
-                  <div class="dropdown">
-                    <button
-                      class="btn p-0"
-                      type="button"
-                      id="cardOpt4"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                    </div>
-                  </div>
-                </div>
-                <span class="d-block mb-1">Pelayanan hari ini</span>
-                <h3 class="card-title text-nowrap mb-2">{{ $pelayanan_hari_ini }}</h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="card-title d-flex align-items-start justify-content-between">
-                  <div class="avatar flex-shrink-0">
-                    <img src="{{ asset('img') }}/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
-                  </div>
-                  <div class="dropdown">
-                    <button
-                      class="btn p-0"
-                      type="button"
-                      id="cardOpt1"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                    </div>
-                  </div>
-                </div>
-                <span class="fw-semibold d-block mb-1">Total Pelayanan</span>
-                <h3 class="card-title mb-2">{{ $total_pelayanan }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 @endsection
 @push('js')
     <script type="text/javascript">
-        $(document).ready(function() {
-          loadLaporan();
-        });
+    var page = 1;
+      $(document).ready(function() {
+        loadLaporan();
+      });
 
-        async function loadLaporan()
-        {
+      async function loadLaporan() {
           var param = {
-            url: '/admin/laporan',
-            method: 'GET',
-            data: {
-              load: 'table'
-            }
+          url: '/oprator/laporan',
+          method: 'GET',
+          data: {
+            load: 'table',
+            page: page,
           }
-          loading(true);
-          await transAjax(param).then((result) => {
-            loading(false);
-            $('#dataTable').html(result);
-          }).catch((err) => {
-            loading(false);
-            console.log(err);
-          });
         }
 
-        function loading(state)
-        {
-          if(state) {
-            $('#loading').removeClass('d-none');
-          } else {
-            $('#loading').addClass('d-none');
+        loading(true);
+        await transAjax(param).then((result) => {
+          loading(false);
+          $('#dataTable').html(result);
+        }).catch((err) => {
+          loading(false);
+        });
+      }
+
+      function loading(state) {
+            if(state) {
+                $('#loading').removeClass('d-none');
+            } else {
+                $('#loading').addClass('d-none');
           }
-        }
+      }
+
+      function loadPaginate(to) {
+      page = to
+      loadLaporan();
+      }
     </script>
 @endpush
