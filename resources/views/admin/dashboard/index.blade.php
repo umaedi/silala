@@ -105,9 +105,9 @@
           <div class="card-body">
             <div class="table-responsive text-nowrap">
               @include('layouts._loading')
-              <table class="table table-bordered" id="dataTable">
-
-              </table>
+              <div class="table-responsive text-nowrap" id="dataTable">
+                      
+              </div>
             </div>
           </div>
         </div>
