@@ -73,7 +73,7 @@
             </div>
             <div class="col mb-3">
               <label for="password" class="form-label">Oprator Bagian</label>
-              <select name="opd_id" id="opd" class="form-select">
+              <select name="opd_id" id="list_opd" class="form-select">
                   <option value="">--pilih bagian--</option>
               </select>
             </div>
