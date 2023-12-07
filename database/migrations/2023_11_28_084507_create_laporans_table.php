@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('laporans', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('opd_id');
-            $table->foreignId('layanan_id');
+            $table->uuid('layanan_id');
             $table->text('keterangan');
             $table->timestamps();
         });

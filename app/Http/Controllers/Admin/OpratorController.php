@@ -20,7 +20,7 @@ class OpratorController extends Controller
         if (\request()->ajax()) {
             $oprator = $this->oprator->Query();
             if (\request()->search) {
-                $oprator->where('name', 'like' . '%' . request()->search . '%');
+                $oprator->where('name', 'like', '%' . request()->search . '%');
             }
             $data['table'] = $oprator->where('level', 'user')->with('opd')->paginate(5);
             return view('admin.oprator._data_oprator', $data);

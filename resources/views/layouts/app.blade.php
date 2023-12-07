@@ -128,7 +128,8 @@
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Batal
               </button>
-              <button type="submit" class="btn btn-primary">Simpan</button>
+              @include('layouts._button')
+              <button id="btn_submit_layanan" type="submit" class="btn btn-primary">Simpan</button>
             </div>
           </div>
         </div>
@@ -271,10 +272,13 @@
             cache: false,
           }
 
+          action(true, 'btn_submit_layanan');
           await transAjax(param).then((result) => {
+            action(false, 'btn_submit_layanan');
             $('#notif').html(`<div class="alert alert-success">${result.data}</div>`);
             loadTable();
           }).catch((err) => {
+            action(false, 'btn_submit_layanan');
             $('#notif').html(`<div class="alert alert-warning">${err.message}</div>`);
           });
         });
@@ -298,13 +302,13 @@
             cache: false,
           }
 
-          action(true);
+          action(true, 'btn_submit_laporan');
           await transAjax(param).then((result) => {
-            action(false);
+            action(false, 'btn_submit_laporan');
             $('#notifLaporan').html(`<div class="alert alert-success">${result.data}</div>`);
             loadLaporan();
           }).catch((err) => {
-            action(false);
+            action(false, 'btn_submit_laporan');
             $('#notifLaporan').html(`<div class="alert alert-warning">${err.responseJSON.message}</div>`);
           });
         });
@@ -319,14 +323,14 @@
           $('#keterangan').val('');
         }
 
-        function action(state)
+        function action(state, id)
         {
             if(state) {
                 $('#btn_loading').removeClass('d-none');
-                $('#btn_submit_laporan').addClass('d-none');
+                $('#'+id).addClass('d-none');
             } else {
                 $('#btn_loading').addClass('d-none');
-                $('#btn_submit_laporan').removeClass('d-none');
+                $('#'+id).removeClass('d-none');
             }
         }
 

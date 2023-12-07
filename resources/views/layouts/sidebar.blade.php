@@ -202,7 +202,7 @@
       <li class="menu-item">
         <a  data-bs-toggle="modal" data-bs-target="#layananModal" href="javascript:void()" class="menu-link">
           <i class="menu-icon tf-icons bx bx-plus-medical"></i>
-          <div data-i18n="Boxicons">Buat Layanan</div>
+          <div data-i18n="Boxicons">Buat Laporan</div>
         </a>
       </li>
 
