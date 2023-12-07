@@ -237,7 +237,7 @@
           }
 
           await transAjax(param).then((result) => {
-            $('.list_opd').html(result);
+            $('#opd .list_opd').html(result);
           });
         }
         
