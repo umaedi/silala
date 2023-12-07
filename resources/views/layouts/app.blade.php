@@ -118,7 +118,7 @@
               <div class="row g-2">
                 <div class="col mb-3">
                     <label for="nameWithTitle" class="form-label">Bagian</label>
-                        <select name="opd_id" id="list_opd" class="form-select">
+                        <select name="opd_id" id="list_opd" class="list_opd form-select">
                           
                         </select>
                   </div>
@@ -237,7 +237,7 @@
           }
 
           await transAjax(param).then((result) => {
-            $('#list_opd').html(result);
+            $('.list_opd').html(result);
           });
         }
         
