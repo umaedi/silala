@@ -9,7 +9,7 @@
               <div class="card-body">
                 <h5 class="card-title text-primary">Selamat datang di dashboard SILALA 🎉</h5>
                 <p class="mb-4">
-                  Sistem Informasi Layanan Di Kabupaten Tulang Bawang
+                  Sistem Informasi Layanan Dinas PMPTSP Kabupaten Tulang Bawang
                 </p>
               </div>
             </div>
@@ -91,7 +91,7 @@
                   </div>
                 </div>
                 <span class="fw-semibold d-block mb-1">Oprator</span>
-                <h3 class="card-title mb-2">{{ $opd }}</h3>
+                <h3 class="card-title mb-2">{{ $oprator }}</h3>
               </div>
             </div>
           </div>
@@ -180,6 +180,7 @@
 @endsection
 @push('js')
     <script type="text/javascript">
+    var page = 1;
         $(document).ready(function() {
           loadLaporan();
         });
@@ -190,7 +191,8 @@
             url: '/admin/laporan',
             method: 'GET',
             data: {
-              load: 'table'
+              load: 'table',
+              page: page
             }
           }
           loading(true);
@@ -210,6 +212,11 @@
           } else {
             $('#loading').addClass('d-none');
           }
+        }
+
+        function loadPaginate(to) {
+          page = to;
+          loadLaporan();
         }
     </script>
 @endpush

@@ -35,12 +35,10 @@
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('vendor') }}/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('vendor') }}/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('vendor') }}/css/demo.css" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('vendor') }}/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <link rel="stylesheet" href="{{ asset('vendor') }}/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
 
@@ -157,7 +155,7 @@
               <div class="row">
                 <div class="col mb-3">
                   <label for="nameWithTitle" class="form-label">Nama layanan</label>
-                  <select name="layanan_id" id="layanan" onchange="resetInput()" class="form-select">
+                  <select name="layanan_id" id="layanan" onchange="resetInput()" class="form-select" required>
                           
                   </select>
                 </div>
@@ -172,6 +170,7 @@
                       class="form-control"
                       placeholder="Masukan keterangan"
                       autofocus
+                      required
                     />
                   </div>
               </div>
@@ -204,10 +203,6 @@
 
     <!-- Main JS -->
     <script src="{{ asset('js') }}/main.js"></script>
-
-    <!-- Page JS -->
-    <script src="{{ asset('js') }}/dashboards-analytics.js"></script>
-    <script src="{{ asset('js') }}/ui-toasts.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -311,7 +306,7 @@
             loadLaporan();
           }).catch((err) => {
             action(false);
-            $('#notif').html(`<div class="alert alert-warning">${err.message}</div>`);
+            $('#notifLaporan').html(`<div class="alert alert-warning">${err.responseJSON.message}</div>`);
           });
         });
 

@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-      <a href="index.html" class="app-brand-link">
+      <a href="#" class="app-brand-link">
         <span class="app-brand-logo demo">
           <svg
             width="25"
@@ -176,13 +176,13 @@
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Pengaturan</span></li>
       <!-- Cards -->
       <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
+        <a href="#" class="menu-link">
           <i class="menu-icon tf-icons bx bx-cog"></i>
           <div data-i18n="Basic">Pengaturan</div>
         </a>
       </li>
       <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
+        <a href="https://api.whatsapp.com/send?phone=6285741492045" class="menu-link">
           <i class="menu-icon tf-icons bx bx-support"></i>
           <div data-i18n="Basic">Support</div>
         </a>
@@ -210,13 +210,13 @@
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Pengaturan</span></li>
       <!-- Cards -->
       <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
+        <a href="#" class="menu-link">
           <i class="menu-icon tf-icons bx bx-cog"></i>
           <div data-i18n="Basic">Pengaturan</div>
         </a>
       </li>
       <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
+        <a href="https://api.whatsapp.com/send?phone=6285741492045" class="menu-link">
           <i class="menu-icon tf-icons bx bx-support"></i>
           <div data-i18n="Basic">Support</div>
         </a>

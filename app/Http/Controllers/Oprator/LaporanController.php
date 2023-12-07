@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Oprator;
 use App\Http\Controllers\Controller;
 use App\Services\LaporanService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class LaporanController extends Controller
@@ -15,10 +16,16 @@ class LaporanController extends Controller
         $this->laporan = $laporanService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         if (\request()->ajax()) {
             $laporan = $this->laporan->Query();
+            if (\request()->search) {
+                $laporan->whereHas('layanan', function ($query) use ($request) {
+                    $query->where('nama_layanan', 'like', '%' . $request->search . '%')
+                        ->orWhere('keterangan', 'like', '%' . $request->search . '%');
+                });
+            }
             $data['table'] = $laporan->where('opd_id', Auth::user()->opd_id)->with('layanan')->latest()->paginate(5);
             return view('oprator.laporan._data_laporan', $data);
         }

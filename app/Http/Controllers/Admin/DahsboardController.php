@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\LaporanService;
 use App\Services\LayananService;
 use App\Services\OpdService;
@@ -35,7 +36,7 @@ class DahsboardController extends Controller
             return view('admin.dashboard._data_opd', $data);
         }
 
-        $data['opd'] = $this->opd->count();
+        $data['oprator'] = User::where('level', 'user')->count();
         $data['layanan'] = $this->layanan->count();
         $data['pelayanan_hari_ini'] = $this->laporan->Query()->whereDate('created_at', Carbon::today())->count();
         $data['total_pelayanan'] = $this->laporan->count();

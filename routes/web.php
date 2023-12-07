@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,7 +21,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::get('/redirect', function () {
+    if (Auth::user()->level == 'admin') {
+        return redirect('/admin/dashboard');
+    } else {
+        return redirect('/oprator/dashboard');
+    }
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', Admin\DahsboardController::class);
 
     Route::get('/layanan/{id}', [Admin\LayananController::class, 'index']);

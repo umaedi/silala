@@ -18,7 +18,7 @@ class LaporanController extends Controller
     public function index()
     {
         if (\request()->ajax()) {
-            $data['table'] = $this->laporan->Query()->whereDate('created_at', Carbon::today())->with(['layanan', 'opd'])->paginate();
+            $data['table'] = $this->laporan->Query()->whereDate('created_at', Carbon::today())->with(['layanan', 'opd'])->paginate(5);
             return view('admin.laporan._data_laporan', $data);
         }
     }
