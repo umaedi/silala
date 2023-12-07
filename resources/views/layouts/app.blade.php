@@ -210,7 +210,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
             loadOpd();
-            loadLayanan();
+            loadTable();
         });
 
       async function transAjax(data) {
@@ -242,7 +242,7 @@
           });
         }
         
-      async function loadLayanan()
+      async function loadTable()
         {
           var param = {
             url: '/oprator/dashboard',
