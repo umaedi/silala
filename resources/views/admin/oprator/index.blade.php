@@ -80,7 +80,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                  Batal
+                  Tutup
                 </button>
                 @include('layouts._button')
                 <button id="btn_submit" type="submit" class="btn btn-primary">Simpan</button>
@@ -98,6 +98,7 @@
         var page = 1;
         $(document).ready(function() {
             loadTable();
+            loadOpd();
 
             $('#search').on('keypress', function(e) {
                 if(e.which == 13) {
@@ -145,6 +146,21 @@
         function loadPaginate(to) {
         page = to
         filterTable()
+        }
+
+        async function loadOpd()
+        {
+          var param = {
+            url: '/admin/dashboard',
+            method: 'GET',
+            data: {
+              load: 'opd',
+            }
+          }
+
+          await transAjax(param).then((result) => {
+            $('.list_opd').html(result);
+          });
         }
 
         $('#storeOprator').on('submit', async function store(e) {

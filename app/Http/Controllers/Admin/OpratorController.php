@@ -54,8 +54,55 @@ class OpratorController extends Controller
         }
     }
 
+    public function update($id)
+    {
+        if (\request()->ajax()) {
+            $oprator = $this->oprator->find($id);
+
+            $validate = Validator::make(\request()->all(), [
+                'name'  => 'required|string|max:100',
+                'email' => 'required|string|max:100|unique:users,email,' . $oprator->id,
+            ]);
+
+            if ($validate->fails()) {
+                return $this->error($validate->errors());
+            }
+
+            $data = \request()->except('_token');
+            if ($data['opd_id'] == '') {
+                $data['opd_id'] = $oprator->opd_id;
+            }
+
+            try {
+                $this->oprator->update($id, $data);
+            } catch (\Throwable $th) {
+                return $this->error($th->getMessage());
+            }
+            return $this->success('Data berhasil diubah');
+        }
+    }
+
     public function show($id)
     {
-        //
+        $data['title'] = "Profile";
+        $data['user'] = $this->oprator->find($id);
+        return view('admin.oprator.show', $data);
+    }
+
+    public function delete($id)
+    {
+        if (\request()->ajax()) {
+            if (\request()->accountActivation == 'on') {
+                try {
+
+                    $this->oprator->destroy($id);
+                } catch (\Throwable $th) {
+                    return $this->error($th->getMessage());
+                }
+                return $this->success('Akun berhasil di non-aktifkan');
+            } else {
+                return $this->success('Tidak ada data berubah');
+            }
+        }
     }
 }

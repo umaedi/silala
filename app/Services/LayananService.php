@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Laporan;
 use App\Models\Layanan;
 
 class LayananService
@@ -21,6 +22,13 @@ class LayananService
     public function store($data)
     {
         return $this->layanan->create($data);
+    }
+
+    public function destroy($id)
+    {
+        $layanan = $this->layanan->find($id);
+        $layanan->delete('id', $id);
+        return $layanan;
     }
 
     public function Query()

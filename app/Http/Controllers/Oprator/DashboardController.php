@@ -28,7 +28,7 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         if (\request()->ajax()) {
-            $data['data'] = $this->layanan->Query()->where('opd_id', Auth::user()->opd_id)->latest()->paginate(5);
+            $data['data'] = $this->layanan->Query()->where('opd_id', Auth::user()->opd_id)->orderBy('nama_layanan', 'ASC')->get();
             return view('oprator.laporan._data_layanan', $data);
         }
 

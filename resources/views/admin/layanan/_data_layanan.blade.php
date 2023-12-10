@@ -13,7 +13,10 @@
             <td>{{ $table->firstItem() + $key }}</td>
             <td>{{ $tb->nama_layanan }}</td>
             <td>{{ $tb->opd->nama_opd }}</td>
-            <td><a href="/admin/layanan/show/{{ $tb->id }}" class="btn btn-primary btn-sm">Lihat</a></td>
+            <td>
+                <a href="/admin/layanan/show/{{ $tb->id }}" class="btn btn-primary btn-sm">Lihat</a>
+                <button class="btn btn-warning btn-sm" onclick="return confirm('Yakin hapus data ini?') ? deleteLayanan('{{ $tb->id }}') : false ">Hapus</button>
+            </td>
         </tr>
         @empty
         <div class="col text-center">

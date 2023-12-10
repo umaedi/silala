@@ -15,7 +15,7 @@
             <td>{{ $tb->name }}</td>
             <td>{{ $tb->email }}</td>
             <td>{{ $tb->opd->nama_opd }}</td>
-            <td><a href="/admin/layanan/show/{{ $tb->id }}" class="btn btn-primary btn-sm">Lihat</a></td>
+            <td><a href="/admin/oprator/show/{{ $tb->id }}" class="btn btn-primary btn-sm">Lihat</a></td>
         </tr>
         @empty
         <div class="col text-center">

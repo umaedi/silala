@@ -15,7 +15,7 @@
             </div>
             <div class="col-sm-4 text-center text-sm-left">
               <div class="card-body pb-0 px-0 px-md-4">
-                <img
+                <img loading="lazy"
                   src="{{ asset('img') }}/illustrations/man-with-laptop-light.png"
                   height="140"
                   alt="View Badge User"
@@ -34,27 +34,11 @@
               <div class="card-body">
                 <div class="card-title d-flex align-items-start justify-content-between">
                   <div class="avatar flex-shrink-0">
-                    <img
-                      src="{{ asset('img') }}/icons/unicons/chart-success.png"
+                    <img loading="lazy"
+                      src="{{ asset('img') }}/avatars/1.png"
                       alt="chart success"
                       class="rounded"
                     />
-                  </div>
-                  <div class="dropdown">
-                    <button
-                      class="btn p-0"
-                      type="button"
-                      id="cardOpt3"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                    </div>
                   </div>
                 </div>
                 <span class="fw-semibold d-block mb-1">Jenis Layanan</span>
@@ -67,27 +51,11 @@
               <div class="card-body">
                 <div class="card-title d-flex align-items-start justify-content-between">
                   <div class="avatar flex-shrink-0">
-                    <img
-                      src="{{ asset('img') }}/icons/unicons/chart-success.png"
+                    <img loading="lazy"
+                      src="{{ asset('img') }}/avatars/1.png"
                       alt="chart success"
                       class="rounded"
                     />
-                  </div>
-                  <div class="dropdown">
-                    <button
-                      class="btn p-0"
-                      type="button"
-                      id="cardOpt3"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                    </div>
                   </div>
                 </div>
                 <span class="fw-semibold d-block mb-1">Pelayanan hari ini</span>
@@ -113,7 +81,7 @@
           </div>
         </div>
       </div>
-      <!--/ Total Revenue -->
+      @include('layouts._modal_laporan')
     </div>
   </div>
 @endsection
@@ -123,7 +91,7 @@
     var search = '';
       $(document).ready(function() {
         loadLaporan();
-        
+        loadLayanan();
         $('#search').on('keypress', function(e) {
             if(e.which == 13) {
                 filterTable();
@@ -169,5 +137,66 @@
       page = to
       loadLaporan();
       }
+
+      async function loadLayanan()
+        {
+          var param = {
+            url: '/oprator/dashboard',
+            method: 'GET',
+            data: {
+              load: 'layanan',
+            }
+          }
+
+          await transAjax(param).then((result) => {
+            $('#layanan').html(result);
+          });
+
+        }
+      $('#storeLaporan').on('submit', async function store(e) {
+          e.preventDefault();
+
+          var form 	= $(this)[0]; 
+          var data 	= new FormData(form);
+          var param = {
+            url: '/oprator/laporan/store',
+            method: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+          }
+
+          action(true, 'btn_submit_laporan');
+          await transAjax(param).then((result) => {
+            action(false, 'btn_submit_laporan');
+            $('#notifLaporan').html(`<div class="alert alert-success">${result.data}</div>`);
+            loadLaporan();
+          }).catch((err) => {
+            action(false, 'btn_submit_laporan');
+            $('#notifLaporan').html(`<div class="alert alert-warning">${err.responseJSON.message}</div>`);
+          });
+        });
+
+        $('#namaLayanan').on('click', function() {
+          $('#notif').html('');
+        });
+
+        function action(state, id)
+        {
+            if(state) {
+                $('#btn_loading').removeClass('d-none');
+                $('#'+id).addClass('d-none');
+            } else {
+                $('#btn_loading').addClass('d-none');
+                $('#'+id).removeClass('d-none');
+            }
+        }
+
+        function resetInput()
+        {
+          $('#notifLaporan').html('');
+          $('#keterangan').val('');
+        }
     </script>
 @endpush

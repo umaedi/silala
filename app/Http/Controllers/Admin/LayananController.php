@@ -24,7 +24,7 @@ class LayananController extends Controller
                 $layanan = $layanan->where('nama_layanan', 'like', '%' . \request()->search . '%');
             }
 
-            $data['table'] = $layanan->where('opd_id', $id)->with('opd')->paginate(5);
+            $data['table'] = $layanan->where('opd_id', $id)->with('opd')->orderBy('nama_layanan', 'ASC')->paginate(10);
             return view('admin.layanan._data_layanan', $data);
         }
         $data['title'] = 'Layanan Silala';
@@ -51,5 +51,18 @@ class LayananController extends Controller
             return view('admin.laporan._data_laporan', $data);
         }
         return view('admin.layanan.show');
+    }
+
+    public function destroy($id)
+    {
+        if (\request()->ajax()) {
+            try {
+                $this->layanan->destroy($id);
+                $this->laporan->destroy($id);
+            } catch (\Throwable $th) {
+                throw $th->getMessage();
+            }
+            return $this->success('Data berhasil dihapus!');
+        }
     }
 }

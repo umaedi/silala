@@ -69,7 +69,7 @@
     @if (auth()->user()->level == 'admin')
     <ul class="menu-inner py-1">
       <!-- Dashboard -->
-      <li class="menu-item active">
+      <li class="menu-item {{ Request::is('admin/dashboard') ? 'active' : '' }}">
         <a href="/admin/dashboard" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Dashboard</div>
@@ -77,12 +77,6 @@
       </li>
 
       <!-- Layouts -->
-      <li class="menu-item">
-        <a  data-bs-toggle="modal" data-bs-target="#basicModal" href="javascript:void()" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-plus-medical"></i>
-          <div data-i18n="Boxicons">Tambah Layanan</div>
-        </a>
-      </li>
       <li class="menu-item">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-cylinder"></i>
@@ -166,21 +160,15 @@
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Oprator</span>
       </li>
-      <li class="menu-item">
+      <li class="menu-item {{ Request::is('admin/oprator') ? 'active' : '' }}">
         <a href="/admin/oprator" class="menu-link">
           <i class="menu-icon tf-icons bx bxs-user"></i>
           <div data-i18n="Boxicons">Data Oprator</div>
         </a>
       </li>
       <!-- Components -->
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Pengaturan</span></li>
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Support</span></li>
       <!-- Cards -->
-      <li class="menu-item">
-        <a href="#" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-cog"></i>
-          <div data-i18n="Basic">Pengaturan</div>
-        </a>
-      </li>
       <li class="menu-item">
         <a href="https://api.whatsapp.com/send?phone=6285741492045" class="menu-link">
           <i class="menu-icon tf-icons bx bx-support"></i>
@@ -207,14 +195,8 @@
       </li>
 
       <!-- Components -->
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Pengaturan</span></li>
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Support</span></li>
       <!-- Cards -->
-      <li class="menu-item">
-        <a href="#" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-cog"></i>
-          <div data-i18n="Basic">Pengaturan</div>
-        </a>
-      </li>
       <li class="menu-item">
         <a href="https://api.whatsapp.com/send?phone=6285741492045" class="menu-link">
           <i class="menu-icon tf-icons bx bx-support"></i>

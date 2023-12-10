@@ -17,6 +17,14 @@ class LaporanService
         return $this->laporan->create($data);
     }
 
+    public function destroy($id)
+    {
+        $laporan = $this->laporan->where('layanan_id', $id)->first();
+        if ($laporan) {
+            $laporan->delete('layanan_id', $id);
+            return $laporan;
+        }
+    }
     public function Query()
     {
         return $this->laporan->query();
